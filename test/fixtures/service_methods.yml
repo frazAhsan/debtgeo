@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  agency_id: 1
+  service_method_name: MyString
+  phone_number: MyString
+  phone_extension: MyString
+  web_site_url: MyString
+  location_address_street_address1: MyString
+  location_address_street_address2: MyString
+  location_address_city: MyString
+  location_address_state_code: MyString
+  location_address_postal_code: MyString
+  location_address_phone_number: MyString
+  doing_business_as: MyString
+  location_language_name: MyString
+  translator_only_flag: MyString
+  written_material_only_flag: MyString
+  full_service_flag: MyString
+
+two:
+  agency_id: 1
+  service_method_name: MyString
+  phone_number: MyString
+  phone_extension: MyString
+  web_site_url: MyString
+  location_address_street_address1: MyString
+  location_address_street_address2: MyString
+  location_address_city: MyString
+  location_address_state_code: MyString
+  location_address_postal_code: MyString
+  location_address_phone_number: MyString
+  doing_business_as: MyString
+  location_language_name: MyString
+  translator_only_flag: MyString
+  written_material_only_flag: MyString
+  full_service_flag: MyString
