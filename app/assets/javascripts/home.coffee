@@ -1,3 +1,6 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$('.infinite-table').infinitePages
+ loading: ->
+   $(this).text("Loading...")
+ success: ->
+ error: ->
+    $(this).text("Trouble! Please drink some coconut water and click again")

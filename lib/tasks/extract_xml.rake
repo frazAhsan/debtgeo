@@ -4,15 +4,16 @@ namespace :cca do
   task :extract_xml => :environment do
     require 'open-uri'
     require 'nokogiri'
-    doc = Nokogiri::XML(open("http://www.justice.gov/ust/eo/bapcpa/ccde/docs/credit_card_act/cc_approved_agencies.xml"))
-    #doc = Nokogiri::XML(File.open("cc_approved_agencies.xml"))
+    #doc = Nokogiri::XML(open("http://www.justice.gov/ust/eo/bapcpa/ccde/docs/credit_card_act/cc_approved_agencies.xml"))
+    doc = Nokogiri::XML(File.open("cc_approved_agencies.xml"))
     
     cc_agencies = doc.css("cc_agencies")
     puts cc_agencies.size
     cc_agencies.each do |cc_agency|
         states = cc_agency.css("state")
         states.each do |state_css|
-            state_code = state_css.css("state_code").text            
+            state_code = state_css.css("state_code").text   
+            unless state_code == "MP" && state_code == "GU"         
             state_name = state_css.css("state_name").text
             puts "State ==== state code #{state_code} ===== state name #{state_name}"
             state = State.find_by(state_code: state_code)
@@ -66,6 +67,7 @@ namespace :cca do
                     jda = JudicialDistrictAgency.find_by(agency_id: agency.id, judicial_district_id: judicial_district.id)
                     JudicialDistrictAgency.create(agency_id: agency.id, judicial_district_id: judicial_district.id) if jda.nil?
                 end
+            end
             end
         end
     end

@@ -1,2 +1,9 @@
-h1 Home#index
-p Find me in app/views/home/index.html.slim
+.well
+  h2.text-center Agencies
+  .infinite-table  	
+    = render "agencies", {:agencies => @agencies}
+    p.pagination.hide
+      = link_to_next_page(@agencies, 'Next Page', :remote => true) 
+javascript:
+  $('.infinite-table').infinitePages();
+
