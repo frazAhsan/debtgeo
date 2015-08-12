@@ -23,6 +23,6 @@ ActiveAdmin.register ServiceMethod do
     actions
   end
 
-  filter :agency_organisation_name_eq, as: :select, collection: Agency.order(:organisation_name).collect { |cat| [cat.organisation_name, cat.id] }
+  #filter :agency_organisation_name_eq, as: :select, collection: Agency.order(:organisation_name).collect { |cat| [cat.organisation_name, cat.id] }
   filter :service_method_name
 end

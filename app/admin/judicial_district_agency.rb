@@ -10,5 +10,5 @@ ActiveAdmin.register JudicialDistrictAgency do
   end
 
   filter :judicial_district
-  filter :agency_organisation_name_eq, as: :select, collection: Agency.order(:organisation_name).collect { |cat| [cat.organisation_name, cat.id] }
+  #filter :agency_organisation_name_eq, as: :select, collection: Agency.order(:organisation_name).collect { |cat| [cat.organisation_name, cat.id] }
 end

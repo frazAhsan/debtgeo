@@ -1,6 +1,9 @@
 .well
-  h2.text-center Agencies
-  .infinite-table  	
+  .panel.panel-primary
+    .panel-heading
+      h3.text-center Agencies
+  .infinite-table  
+    hr	
     = render "agencies", {:agencies => @agencies}
     p.pagination.hide
       = link_to_next_page(@agencies, 'Next Page', :remote => true) 

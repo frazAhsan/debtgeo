@@ -1,7 +1,11 @@
 <% agencies.each do |agency| %>
+
+<div class="well">
 <h4 class="text-center">
 <%= link_to agency.organisation_name.strip, "http://#{agency.website.strip}", :target => "_blank" %>
 </h4>
 <address class="text-center">
   <%= agency.address %></address>
+  </div>
 <% end %>
+<hr/>
