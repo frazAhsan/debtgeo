@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  resources :states
   get 'home/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
