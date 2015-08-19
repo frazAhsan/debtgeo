@@ -1,0 +1,7 @@
+- unless @cities.blank?
+  .well
+    h3.text-center Search by city
+    ul.list-unstyled
+      -@cities.each do |cities|
+        li= link_to cities
+    hr/

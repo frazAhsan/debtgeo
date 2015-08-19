@@ -1,0 +1,8 @@
+- unless @zip_codes.blank?
+  .well
+    h3.text-center Search by zip code
+    ul.list-unstyled
+      -@zip_codes.each do |zip_code|
+        .col-md-4
+          li= link_to zip_code
+    hr/
