@@ -1,5 +1,7 @@
 ActiveAdmin.register State do
-  actions :all, :except => [:new, :edit]
+  permit_params :name, :state_code
+
+  actions :all#, :except => [:new, :edit]
 
   index do
     selectable_column
