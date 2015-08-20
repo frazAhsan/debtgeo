@@ -9,6 +9,6 @@ class StatesController < ApplicationController
   		@zip_codes = filtered_infos.collect(&:zip_code)
   		@cities = filtered_infos.collect(&:city)
   	end
-	@agencies = Agency.where("state_id = ?", @state.id).page(params[:page]).per(10).order(:organisation_name)
+	@agencies = Agency.joins(judicial_districts: [:state]).where("states.id = ?", @state.id).page(params[:page]).per(10).order(:organisation_name)
   end
 end

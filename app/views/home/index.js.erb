@@ -1,4 +1,4 @@
-$("<%=j render(:partial => 'agencies/index', :agencies => @agencies) %>")
+$("<%=j render(:partial => 'agencies/index', locals: {:agencies => @agencies}) %>")
   .appendTo($(".infinite-table"));
 
 // Update pagination link
