@@ -2,6 +2,9 @@
   .well
     h3.text-center Search by city
     ul.list-unstyled
-      -@cities.each do |cities|
-        li= link_to cities
+      -@cities.each do |city|
+        - if params[:city] == city
+          li= city
+        - else
+          li= link_to city, "/states/#{@state.slug}/cities/#{city}"
     hr/

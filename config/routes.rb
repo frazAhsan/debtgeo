@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  resources :states
+  resources :states do
+    get 'zip_codes/:zip_code' => 'states#zip_codes'
+    get 'cities/:city' => 'states#cities'
+  end
+
   get 'home/index'
 
   # The priority is based upon order of creation: first created -> highest priority.

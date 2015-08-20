@@ -3,5 +3,6 @@
 #
 # Examples:
 #
-   State.create([{ name: 'North Carolina', state_code: "NC" }, { name: 'Alabama', state_code: 'AL' }])
+   #Not required
+   #State.create([{ name: 'North Carolina', state_code: "NC" }, { name: 'Alabama', state_code: 'AL' }])
 #   State.create(name: 'Emanuel', city: cities.first)

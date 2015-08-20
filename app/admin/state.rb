@@ -8,6 +8,7 @@ ActiveAdmin.register State do
     id_column
     column :state_code
     column :name
+    column :slug
     actions
   end
 

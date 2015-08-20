@@ -4,5 +4,8 @@
     ul.list-unstyled
       -@zip_codes.each do |zip_code|
         .col-md-4
-          li= link_to zip_code
+          - if params[:zip_code] == zip_code
+            li= zip_code
+          - else
+            li= link_to zip_code, "/states/#{@state.slug}/zip_codes/#{zip_code}"
     hr/
