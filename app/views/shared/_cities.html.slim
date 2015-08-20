@@ -1,7 +1,7 @@
 - unless @cities.blank?
   .well
-    h3.text-center Search by city
-    ul.list-unstyled
+    h4.text-center Search by city
+    ul.list-unstyled.text-center
       -@cities.each do |city|
         - if params[:city] == city
           li= city

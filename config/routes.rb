@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     get 'cities/:city' => 'states#cities'
   end
 
+  resources :judicial_districts
+
   get 'home/index'
 
   # The priority is based upon order of creation: first created -> highest priority.

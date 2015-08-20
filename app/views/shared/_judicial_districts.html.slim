@@ -1,0 +1,10 @@
+- unless @judicial_districts.blank?
+  .well
+    h4.text-center Search by judicial districts
+    ul.list-unstyled.text-center
+      -@judicial_districts.each do |judicial_district|
+        - if params[:id] == judicial_district.slug
+          li= judicial_district.name
+        - else
+          li= link_to judicial_district.name, "/judicial_districts/#{judicial_district.slug}"
+    hr/

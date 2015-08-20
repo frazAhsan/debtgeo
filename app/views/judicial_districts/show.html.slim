@@ -1,0 +1,11 @@
+.well
+  .row
+    = render "shared/states"
+  .infinite-table  
+    h3.text-center Approved Credit Counseling Agencies
+    hr	
+    = render "agencies/index", {:agencies => @agencies}
+    p.pagination.hide
+      = link_to_next_page(@agencies, 'Next Page', :remote => true) 
+javascript:
+  $('.infinite-table').infinitePages();

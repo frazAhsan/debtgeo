@@ -29,6 +29,7 @@ class StatesController < ApplicationController
       filtered_infos = Agency.select("zip_code, city").where("state_id = ?", @state.id)
       @zip_codes = filtered_infos.collect(&:zip_code)
       @cities = filtered_infos.collect(&:city)
+      @judicial_districts = JudicialDistrict.where(state_id: @state.id)
     end
   end
 

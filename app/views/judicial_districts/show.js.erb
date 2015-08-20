@@ -1,0 +1,10 @@
+$("<%=j render(:partial => 'agencies/index', locals: {:agencies => @agencies}) %>")
+  .appendTo($(".infinite-table"));
+
+// Update pagination link
+<% if @agencies.last_page? %>
+  $('.pagination').html("That's all, folks!");
+<% else %>
+  $('.pagination')
+    .html("<%=j link_to_next_page(@agencies, 'Next Page', :remote => true) %>");
+<% end %>
