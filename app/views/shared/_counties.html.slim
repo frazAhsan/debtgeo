@@ -1,0 +1,10 @@
+- unless @counties.blank?
+  .well
+    h4.text-center Search by county
+    ul.list-unstyled.text-center
+      -@counties.each do |county|
+        - if params[:county] == county
+          li= county
+        - else
+          li= link_to county, "/states/#{@state.slug}/counties/#{county}"
+    hr/

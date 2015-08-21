@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :states do
     get 'zip_codes/:zip_code' => 'states#zip_codes'
     get 'cities/:city' => 'states#cities'
+    get 'counties/:county' => 'states#counties'
   end
 
   resources :judicial_districts
