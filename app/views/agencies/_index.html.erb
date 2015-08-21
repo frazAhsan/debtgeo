@@ -8,4 +8,7 @@
   <%= agency.address %></address>
   </div>
 <% end %>
+<div class="col-md-12 text-center">
+	<%= paginate(agencies, :theme => 'twitter-bootstrap-3',:pagination_class => "pagination-sm text-center") %>
+</div>
 <hr/>
