@@ -5,6 +5,7 @@ ActiveAdmin.register Agency do
 
   filter :organisation_name
   filter :website
+  filter :county
 
 
 end
