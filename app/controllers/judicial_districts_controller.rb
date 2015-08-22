@@ -3,7 +3,7 @@ class JudicialDistrictsController < ApplicationController
 	def show
 		id = params[:id].split("-").first
 		@judicial_district = JudicialDistrict.find id
-		@agencies = @judicial_district.agencies.page(params[:page]).per(10).order(:organisation_name)
+		@agencies = @judicial_district.agencies.includes(:service_methods).page(params[:page]).per(10).order(:organisation_name).distinct
 		set_default_values
 	end
 
