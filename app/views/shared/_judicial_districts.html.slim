@@ -6,5 +6,5 @@
         - if params[:id] == judicial_district.slug
           li= judicial_district.name
         - else
-          li= link_to judicial_district.name, "/judicial_districts/#{judicial_district.slug}"
+          li= link_to judicial_district.name, "/judicial/#{@state.slug}/#{judicial_district.slug}"
     hr/

@@ -3,8 +3,8 @@
     h4.text-center Search by county
     ul.list-unstyled.text-center
       -@counties.each do |county|
-        - if params[:county] == county
+        - if params[:attribute] == county.downcase.gsub(" ", "-")
           li= county
         - else
-          li= link_to county, "/states/#{@state.slug}/counties/#{county}"
+          li= link_to county, "/#{@state.slug}/#{county.downcase.gsub(" ", "-")}"
     hr/

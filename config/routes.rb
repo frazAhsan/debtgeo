@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  resources :states do
-    get 'zip_codes/:zip_code' => 'states#zip_codes'
-    get 'cities/:city' => 'states#cities'
-    get 'counties/:county' => 'states#counties'
-  end
+
+  get "/:id", to: 'states#show'
+  get ':id/:zip_code', to: 'states#zip_codes',constraints: { zip_code: /\d{5}/}, via: :get
+  get ':id/:attribute', to: 'states#search'
+  get 'judicial/:state_id/:id', to: 'judicial_districts#show'
+  resources :states
 
   resources :judicial_districts
 

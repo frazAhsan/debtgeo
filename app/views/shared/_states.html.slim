@@ -7,4 +7,4 @@
         - if params[:id] == state.slug
           li= state.name
         - else
-          li= link_to "#{state.name}".html_safe, "/states/#{state.slug}"
+          li= link_to "#{state.name}".html_safe, "/#{state.slug}"

@@ -7,25 +7,25 @@ class StatesController < ApplicationController
   end
 
   def zip_codes
-    @state = State.find_by(slug: params[:state_id])
+    @state = State.find_by(slug: params[:id])
     set_default_values
     @agencies = Agency.includes(:service_methods).where("zip_code = ?", params[:zip_code]).page(params[:page]).per(15).order(:organisation_name).distinct
     render :show
   end
 
-  def cities
-    @state = State.find_by(slug: params[:state_id])
+  def search
+    attribute = params[:attribute].gsub("-", " ")
+    @state = State.find_by(slug: params[:id])
     set_default_values
-    @agencies = Agency.includes(:service_methods).where("city = ?", params[:city]).page(params[:page]).per(15).order(:organisation_name).distinct
+    if params[:attribute].include?("-county")
+      @agencies = Agency.includes(:service_methods).where("lower(county) = ?", attribute).page(params[:page]).per(15).order(:organisation_name).distinct
+    else
+      @agencies = Agency.includes(:service_methods).where("lower(city) = ?", attribute).page(params[:page]).per(15).order(:organisation_name).distinct
+    end
     render :show
+    
   end
 
-  def counties
-    @state = State.find_by(slug: params[:state_id])
-    set_default_values
-    @agencies = Agency.includes(:service_methods).where("county = ?", params[:county]).page(params[:page]).per(15).order(:organisation_name).distinct
-    render :show
-  end
 
   private
 
@@ -33,11 +33,11 @@ class StatesController < ApplicationController
     unless request.xhr?
       state_ids = Agency.select("distinct state_id")
       @states = State.where(id: state_ids).order(:name) 
-      filtered_infos = Agency.select("zip_code, city, county").where("state_id = ?", @state.id)
-      @zip_codes = filtered_infos.collect(&:zip_code)
-      @cities = filtered_infos.collect(&:city)
-      @counties = filtered_infos.collect(&:county)
-      @judicial_districts = JudicialDistrict.where(state_id: @state.id)
+      #filtered_infos = Agency.select("distinct(zip_code), distinct(city), distinct(county)").where("state_id = ?", @state.id)
+      @zip_codes = Agency.select("distinct(zip_code)").where("state_id = ?", @state.id).collect(&:zip_code).sort
+      @cities = Agency.select("distinct(city)").where("state_id = ?", @state.id).collect(&:city).sort
+      @counties = Agency.select("distinct(county)").where("state_id = ?", @state.id).collect(&:county).sort
+      @judicial_districts = JudicialDistrict.where(state_id: @state.id).order(:name)
     end
   end
 
