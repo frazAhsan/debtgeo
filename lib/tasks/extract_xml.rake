@@ -4,8 +4,8 @@ namespace :cca do
   task :extract_xml => :environment do
     require 'open-uri'
     require 'nokogiri'
-    #doc = Nokogiri::XML(open("http://www.justice.gov/ust/eo/bapcpa/ccde/docs/credit_card_act/cc_approved_agencies.xml"))
-    doc = Nokogiri::XML(File.open("cc_approved_agencies.xml"))
+    doc = Nokogiri::XML(open("http://www.justice.gov/ust/eo/bapcpa/ccde/docs/credit_card_act/cc_approved_agencies.xml"))
+    #doc = Nokogiri::XML(File.open("cc_approved_agencies.xml"))
     
     cc_agencies = doc.css("cc_agencies")
     puts cc_agencies.size
