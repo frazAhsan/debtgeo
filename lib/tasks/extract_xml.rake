@@ -12,7 +12,7 @@ namespace :cca do
     cc_agencies.each do |cc_agency|
         states = cc_agency.css("state")
         states.each do |state_css|
-            state_code = state_css.css("state_code").text   
+            state_code = state_css.css("state_code").text.to_s.gsub("\t", "")   
             unless state_code == "MP" && state_code == "GU"         
             state_name = state_css.css("state_name").text
             puts "State ==== state code #{state_code} ===== state name #{state_name}"
