@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bbb_overview_id: 1
+  complaint_type: MyString
+  total_closed_complaints: 1
+
+two:
+  bbb_overview_id: 1
+  complaint_type: MyString
+  total_closed_complaints: 1
