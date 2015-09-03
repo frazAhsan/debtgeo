@@ -4,6 +4,7 @@ class CreateBbbOverviews < ActiveRecord::Migration
       t.integer :agency_id
       t.string :accredited_since
       t.string :name
+      t.string :profile_url
       t.string :phone
       t.string :fax
       t.string :business_link

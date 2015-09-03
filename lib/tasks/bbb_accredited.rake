@@ -64,7 +64,8 @@ namespace :cca do
                     add_phones << additional_phone.text.squish rescue nil
                 end
                 add_phones = add_phones.join(", ")
-                rating =overview_doc.css('div#business-rating > div#business-rating-text > span.business-rating-scale strong').text
+                rating =overview_doc.css('div#business-rating > div#business-rating-text > span.business-rating-scale strong').text.squish
+                rating = rating.gsub("On a scale of", "").gsub("to F", "").squish
                 puts "title #{title} phone #{phone} fax #{fax} business_link #{business_link} streetAddress #{streetAddress} addressLocality #{addressLocality} addressRegion #{addressRegion} postalCode #{postalCode} email #{email}"
                 puts "rating #{rating} add_phones #{add_phones}"
                 bbb_overview = BbbOverview.find_by(agency_id: agency.id, name: title)
@@ -72,6 +73,7 @@ namespace :cca do
                 bbb_overview.accredited_since = accredited_since
                 bbb_overview.phone = phone
                 bbb_overview.fax = fax
+                bbb_overview.profile_url = overview_url
                 bbb_overview.business_link = business_link
                 bbb_overview.street_address = streetAddress
                 bbb_overview.locality = addressLocality
@@ -84,16 +86,17 @@ namespace :cca do
 
 
                 complaint_table =overview_doc.css('div#customer-complaint-summary-container table.complaint-table').first
-                complaints = complaint_table.css("tr")
-                complaints.each_with_index do |complaint, index|
-                    unless (index == 0 || index == 6)
-                        complaint_type = complaint.css("td").first.text.squish
-                        total_closed_complaints = complaint.css("td").last.text.squish
-                        bbb_complaint = BbbComplaint.find_by(bbb_overview_id: bbb_overview.id, complaint_type: complaint_type)
-                        bbb_complaint = BbbComplaint.new(bbb_overview_id: bbb_overview.id, complaint_type: complaint_type)
-                        bbb_complaint.total_closed_complaints = total_closed_complaints
-                        bbb_complaint.save
-
+                unless complaint_table.nil?
+                    complaints = complaint_table.css("tr")
+                    complaints.each_with_index do |complaint, index|
+                        unless (index == 0 || index == 6)
+                            complaint_type = complaint.css("td").first.text.squish
+                            total_closed_complaints = complaint.css("td").last.text.squish
+                            bbb_complaint = BbbComplaint.find_by(bbb_overview_id: bbb_overview.id, complaint_type: complaint_type)
+                            bbb_complaint = BbbComplaint.new(bbb_overview_id: bbb_overview.id, complaint_type: complaint_type)
+                            bbb_complaint.total_closed_complaints = total_closed_complaints
+                            bbb_complaint.save
+                        end
                     end
                 end
 
