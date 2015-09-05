@@ -5,7 +5,6 @@ namespace :cca do
     require 'open-uri'
     require 'nokogiri'
     Agency.where("website is not null").find_each do |agency|
-        puts agency.website
         puts agency.id
     url = "https://www.bbb.org/search/?type=name&input=#{agency.website}&location=&tobid=&filter=business&radius=&country=USA%2CCAN&language=en&codeType=YPPA"
     puts url
@@ -29,7 +28,6 @@ namespace :cca do
                     #if accredited_since.include?("BBB")
                     agency.update(bbb_accredited: true)
                 end
-                puts accredited_since
                 title =overview_doc.css('h1.business-title').text.squish
                 
                 phone =overview_doc.css('div.business-detail-text > p > span.business-phone').text
@@ -56,18 +54,30 @@ namespace :cca do
                         
                         
                 end
-
+               puts overview_doc.css('span.business-email')
                 email =overview_doc.css('span.business-email a').text
-                additional_phones =overview_doc.css('div#additional-phone-pop > ul > li')
-                add_phones = Array.new
-                additional_phones.each do |additional_phone|
-                    add_phones << additional_phone.text.squish rescue nil
+                puts email
+                unless email.match(/[a-zA-Z0-9._%]@(?:[a-zA-Z0-9]\.)[a-zA-Z]{2,4}/)
+                    email = nil
                 end
-                add_phones = add_phones.join(", ")
+
                 rating =overview_doc.css('div#business-rating > div#business-rating-text > span.business-rating-scale strong').text.squish
                 rating = rating.gsub("On a scale of", "").gsub("to F", "").squish
-                puts "title #{title} phone #{phone} fax #{fax} business_link #{business_link} streetAddress #{streetAddress} addressLocality #{addressLocality} addressRegion #{addressRegion} postalCode #{postalCode} email #{email}"
-                puts "rating #{rating} add_phones #{add_phones}"
+                #puts "title #{title} phone #{phone} fax #{fax} business_link #{business_link} streetAddress #{streetAddress} addressLocality #{addressLocality} addressRegion #{addressRegion} postalCode #{postalCode} email #{email}"
+                #puts "rating #{rating} add_phones #{add_phones}"
+
+                complaint_summary =overview_doc.css('div#customer-complaint-summary-container > div#complaint-sort-container > span').text.squish
+                complaint_additional_info = nil
+                add_infos=overview_doc.css('div#customer-complaint-summary-container > p')
+
+                if add_infos.text.include?("Additional Complaint Information")
+                    add_infos.each_with_index do |index, add_info|
+                        if index == 2
+                            complaint_additional_info = add_info.squish
+                        end
+                    end
+                end
+                
                 bbb_overview = BbbOverview.find_by(agency_id: agency.id, name: title)
                 bbb_overview = BbbOverview.new(agency_id: agency.id, name: title) if bbb_overview.nil?
                 bbb_overview.accredited_since = accredited_since
@@ -80,8 +90,9 @@ namespace :cca do
                 bbb_overview.region = addressRegion
                 bbb_overview.postal_code = postalCode
                 bbb_overview.rating = rating
-                bbb_overview.additional_phone = add_phones
                 bbb_overview.email = email
+                bbb_overview.complaint_summary = complaint_summary
+                bbb_overview.complaint_additional_info = complaint_additional_info
                 bbb_overview.save
 
 
@@ -100,7 +111,41 @@ namespace :cca do
                     end
                 end
 
-
+                additional_phones =overview_doc.css('div#additional-phone-pop > ul > li')
+                additional_phones.each do |additional_phone|
+                    add_phone_number = additional_phone.text.squish rescue nil
+                    unless add_phone_number.nil?
+                        if add_phone_number.include?("(Fax)")
+                            contact_type = "Fax"
+                            contact_number = add_phone_number.gsub("(Fax)", "").squish
+                        else
+                            contact_type = "Phone"
+                            contact_number = add_phone_number.gsub("(Phone)", "").squish
+                        end
+                        add_phone = BbbContact.find_by(bbb_overview_id: bbb_overview.id, contact_type: contact_type, contact_number: contact_number)
+                        add_phone = BbbContact.new(bbb_overview_id: bbb_overview.id, contact_type: contact_type, contact_number: contact_number) if add_phone.nil?
+                        add_phone.save
+                    end
+                end
+                additional_emails =overview_doc.css('div#additional-email-pop > ul > li')
+                puts additional_emails
+                additional_emails.each do |additional_email_list|
+                    additional_email_list.each_with_index do |additional_email|
+                        puts additional_email
+                        if index == 1
+                            puts "-----------------------------------------"
+                            puts additional_email
+                            email = additional_email.css('a').text.squish rescue nil
+                            puts email
+                            if email.match(/[a-zA-Z0-9._%]@(?:[a-zA-Z0-9]\.)[a-zA-Z]{2,4}/)
+                                contact_type = "Email"
+                                add_phone = BbbContact.find_by(bbb_overview_id: bbb_overview.id, contact_type: contact_type, contact_number: email)
+                                add_phone = BbbContact.new(bbb_overview_id: bbb_overview.id, contact_type: contact_type, contact_number: email) if add_phone.nil?
+                                add_phone.save
+                            end
+                        end
+                    end
+                end
             #else
             #    puts "0000000000000000000000000"
             #end
