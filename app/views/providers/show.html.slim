@@ -1,0 +1,76 @@
+.well
+  .row
+    = render "shared/states"
+.infinite-table  
+  h3.text-center= @provider.name
+  ul.nav.nav-tabs.cricket_directory_tab
+    li.active
+      a data-toggle="tab" href="#tab1" Overview
+    li
+      a data-toggle="tab" href="#tab2" Details
+    li
+      a data-toggle="tab" href="#tab3" Complaints
+    li
+      a data-toggle="tab" href="#tab4" Contact Info
+  div.tab-content
+    div.tab-pane.active id="tab1"
+      blockquote
+   	    p= @provider.accredited_since_title
+   	    address
+   	      = @provider.address
+
+    div.tab-pane id="tab2" 
+      div.panel.panel-primary
+        div.panel-heading
+          p.text-center Details
+        div.panel-body
+          table.table
+            tbody
+              tr
+                td Better Business Bureau Rating
+                td= @provider.rating
+         
+        div.panel-footer
+          p.text-centers
+
+    div.tab-pane id="tab3" 
+      div.panel.panel-primary
+        div.panel-heading
+          p.text-center= @provider.complaint_summary
+        div.panel-body
+          table.table
+            thead
+              tr
+                th #
+                th Complaint Type
+                th Total Closed Complaint
+            tbody
+              -@provider.bbb_complaints.each_with_index do |complaint, index|
+                tr
+                  td= index+1
+                  td= complaint.complaint_type
+                  td= complaint.total_closed_complaints
+        div.panel-footer
+          p.text-center= @provider.complaint_additional_info
+    div.tab-pane id="tab4" 
+      div.panel.panel-primary
+        div.panel-heading
+          p.text-center Contact Information
+        div.panel-body
+          table.table
+            tbody
+              tr
+                td Website
+                td= link_to @provider.business_link, @provider.business_link, :target => "_blank"
+              tr
+                td Email
+                td= @provider.email
+              tr
+                td Phone
+                td= @provider.phone
+              tr
+                td Fax
+                td= @provider.fax                
+        div.panel-footer
+          p.text-centers
+

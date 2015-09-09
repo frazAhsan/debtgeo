@@ -2,11 +2,17 @@
 
 <div class="well">
 <h4 class="text-center">
-<%= link_to agency.organisation_name.strip, "http://#{agency.website.strip}", :target => "_blank" %>
+<%= agency.organisation_name.strip %>
 </h4>
 <address class="text-center">
-  <%= agency.address %></address>
-
+  <%= agency.address %>
+</address>
+<div class="col-md-12 text-center">
+<h3 class="text-center">Providers</h3>
+<% agency.providers.each do |provider| %>
+ <%= link_to provider.name, "/provider/#{provider.display_slug}", class: "text-center" %>
+<% end %>
+</div>
 <% agency.service_methods.each do |service_method| %>
 <% if service_method.service_method_name == "Telephone" %>
 <p class="bg-info text-center"><%= service_method.service_method_name %>: <%= service_method.phone_number %></p>
