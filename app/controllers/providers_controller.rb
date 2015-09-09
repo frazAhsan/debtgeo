@@ -5,6 +5,8 @@ class ProvidersController < ApplicationController
 	  id = params[:slug].split("-").last
 	  @provider = BbbOverview.find(id)
 	  #@state = State.find_by(slug: params[:id])
+    @additional_phones = BbbContact.where(bbb_overview_id: @provider.id, contact_type: "Phone")
+    @additional_faxes = BbbContact.where(bbb_overview_id: @provider.id, contact_type: "Fax")
       set_default_values
 	end
 

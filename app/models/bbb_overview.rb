@@ -1,6 +1,7 @@
 class BbbOverview < ActiveRecord::Base
 	belongs_to :agency
 	has_many :bbb_complaints
+  has_many :bbb_contacts
 
    	def display_slug
       slug = "#{self.name}-#{self.locality}-#{self.region}-#{self.id}".gsub(" ", "-").gsub(/[^0-9a-z]/i, '-') rescue ""

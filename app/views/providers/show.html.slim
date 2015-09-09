@@ -57,7 +57,7 @@
         div.panel-heading
           p.text-center Contact Information
         div.panel-body
-          table.table
+          table.table.col-md-6
             tbody
               tr
                 td Website
@@ -70,7 +70,19 @@
                 td= @provider.phone
               tr
                 td Fax
-                td= @provider.fax                
+                td= @provider.fax 
+              - unless @additional_phones.blank?
+                tr
+                  td Additional Phone Numbers
+                - @additional_phones.each do |phone|
+                  tr
+                    td= phone.contact_number               
+              - unless @additional_faxes.blank?
+                tr
+                  td Additional Fax Numbers
+                - @additional_faxes.each do |phone|
+                  tr
+                    td= phone.contact_number   
         div.panel-footer
           p.text-centers
 
