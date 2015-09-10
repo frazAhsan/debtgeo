@@ -6,6 +6,6 @@ class Agency < ActiveRecord::Base
 
 
    def display_slug
-      return "#{self.organisation_name.gsub(" ", "-").gsub(/[^0-9a-z]/i, '-').downcase rescue ""}"
+      return "#{self.organisation_name.gsub(" ", "-").gsub(/[^0-9a-z]/i, '-').squeeze("-").downcase rescue ""}"
   end
 end

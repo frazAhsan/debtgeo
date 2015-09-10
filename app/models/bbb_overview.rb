@@ -4,7 +4,7 @@ class BbbOverview < ActiveRecord::Base
   has_many :bbb_contacts
 
    	def display_slug
-      slug = "#{self.name}-#{self.locality}-#{self.region}-#{self.id}".gsub(" ", "-").gsub(/[^0-9a-z]/i, '-') rescue ""
+      slug = "#{self.name}-#{self.locality}-#{self.region}-#{self.id}".gsub(" ", "-").gsub(/[^0-9a-z]/i, '-').squeeze("-").downcase rescue ""
   	end
 
   	def accredited_since_title

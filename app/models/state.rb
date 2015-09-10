@@ -6,6 +6,6 @@ class State < ActiveRecord::Base
   #extend FriendlyId
   #friendly_id :name, use: :slugged
   def set_display_slug
-      self.slug = self.name.gsub(" ", "-").gsub(/[^0-9a-z]/i, '-').downcase rescue ""
+      self.slug = self.name.gsub(" ", "-").gsub(/[^0-9a-z]/i, '-').squeeze("-").downcase rescue ""
   end
 end

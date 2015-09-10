@@ -4,7 +4,7 @@ class JudicialDistrict < ActiveRecord::Base
   	has_many :agencies, through: :judicial_district_agencies
 
   	def slug
-  		name = self.name.downcase.gsub(" ", "-")
+  		name = self.name.downcase.gsub(" ", "-").squeeze("-").downcase
   		return "#{name}"
   	end
 end
