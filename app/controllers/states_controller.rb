@@ -2,27 +2,39 @@ class StatesController < ApplicationController
 
   def show
   	@state = State.find_by(slug: params[:id])
-    set_default_values
-	  @agencies = Agency.includes(:service_methods).joins(judicial_districts: [:state]).where("states.id = ?", @state.id).page(params[:page]).per(15).order(:organisation_name).distinct
+    if @state.nil?
+      render file: "#{Rails.root}/public/404.html", status: 403, layout: false
+    else
+      set_default_values
+	     @agencies = Agency.includes(:service_methods).joins(judicial_districts: [:state]).where("states.id = ?", @state.id).page(params[:page]).per(15).order(:organisation_name).distinct
+    end
   end
 
   def zip_codes
     @state = State.find_by(slug: params[:id])
-    set_default_values
-    @agencies = Agency.includes(:service_methods).where("zip_code = ?", params[:zip_code]).page(params[:page]).per(15).order(:organisation_name).distinct
-    render :show
+    if @state.nil?
+      render file: "#{Rails.root}/public/404.html", status: 403, layout: false
+    else
+      set_default_values
+      @agencies = Agency.includes(:service_methods).where("zip_code = ?", params[:zip_code]).page(params[:page]).per(15).order(:organisation_name).distinct
+      render :show
+    end
   end
 
   def search
     attribute = params[:attribute].gsub("-", " ")
     @state = State.find_by(slug: params[:id])
-    set_default_values
-    if params[:attribute].include?("-county")
-      @agencies = Agency.includes(:service_methods).where("lower(county) = ?", attribute).page(params[:page]).per(15).order(:organisation_name).distinct
+    if @state.nil?
+      render file: "#{Rails.root}/public/404.html", status: 403, layout: false
     else
-      @agencies = Agency.includes(:service_methods).where("lower(city) = ?", attribute).page(params[:page]).per(15).order(:organisation_name).distinct
+      set_default_values
+      if params[:attribute].include?("-county")
+        @agencies = Agency.includes(:service_methods).where("lower(county) = ?", attribute).page(params[:page]).per(15).order(:organisation_name).distinct
+      else
+        @agencies = Agency.includes(:service_methods).where("lower(city) = ?", attribute).page(params[:page]).per(15).order(:organisation_name).distinct
+      end
+      render :show
     end
-    render :show
     
   end
 

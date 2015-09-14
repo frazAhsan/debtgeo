@@ -2,10 +2,15 @@ class BbbOverview < ActiveRecord::Base
 	belongs_to :agency
 	has_many :bbb_complaints
   has_many :bbb_contacts
+  
+  after_save :set_display_slug
 
-   	def display_slug
-      slug = "#{self.name}-#{self.locality}-#{self.region}-#{self.id}".gsub(" ", "-").gsub(/[^0-9a-z]/i, '-').squeeze("-").downcase rescue ""
-  	end
+  #validates :display_slug, uniqueness: true
+
+  def set_display_slug
+    slug = ("#{self.name}-#{self.locality}-#{self.region}-#{self.id}".gsub(" ", "-").gsub(/[^0-9a-z]/i, '-').squeeze("-").downcase rescue "")
+    self.update_column(:display_slug, slug)
+  end
 
   	def accredited_since_title
   		begin

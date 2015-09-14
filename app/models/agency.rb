@@ -5,7 +5,13 @@ class Agency < ActiveRecord::Base
   	has_many :providers, class_name: "BbbOverview"
 
 
-   def display_slug
-      return "#{self.organisation_name.gsub(" ", "-").gsub(/[^0-9a-z]/i, '-').squeeze("-").downcase rescue ""}"
+  after_save :set_display_slug
+
+  #validates :display_slug, uniqueness: true
+
+  def set_display_slug
+    slug = ("#{self.organisation_name.gsub(" ", "-").gsub(/[^0-9a-z]/i, '-').squeeze("-").downcase rescue ""}")
+    self.update_column(:display_slug, slug)
   end
+
 end

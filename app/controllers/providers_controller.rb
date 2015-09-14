@@ -2,12 +2,16 @@ class ProvidersController < ApplicationController
   layout "provider"
 
 	def show
-	  id = params[:slug].split("-").last
-	  @provider = BbbOverview.find(id)
+	  #id = params[:slug].split("-").last
+	  @provider = BbbOverview.find_by(display_slug: params[:slug])
+    if @provider.nil?
+      render file: "#{Rails.root}/public/404.html", status: 403, layout: false
+    else
 	  #@state = State.find_by(slug: params[:id])
     @additional_phones = BbbContact.where(bbb_overview_id: @provider.id, contact_type: "Phone")
     @additional_faxes = BbbContact.where(bbb_overview_id: @provider.id, contact_type: "Fax")
       set_default_values
+    end
 	end
 
   def set_default_values
