@@ -9,5 +9,5 @@ class CreateWebsites < ActiveRecord::Migration
       t.timestamps null: false
     end
   end
-  Website.create(name: "Dummy Site", domain: "dummysite.com", city: "Test", state_id: 1)
+  #Website.create(name: "Dummy Site", domain: "dummysite.com", city: "Test", state_id: 1)
 end
