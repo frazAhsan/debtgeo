@@ -1,7 +1,6 @@
-.page-header
-  h2.text-center Select a state to find agencies
--@states.in_groups_of(10, false) do |states|
-  .col-md-3
+h3.text-center Select a state to find providers
+-@states.in_groups_of(6, false) do |states|
+  .col-md-2.col-xs-4.col-sm-4.col-lg-2
     ul.list-unstyled
       - for state in states
         - if params[:id] == state.slug

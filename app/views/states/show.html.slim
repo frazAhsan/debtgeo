@@ -1,8 +1,6 @@
-.well
-  .row
-    = render "shared/states"
-  .infinite-table  
-    h3.text-center Approved Credit Counseling Agencies
-    hr	
-    = render "agencies/index", {:agencies => @agencies}
+.well.row
+  = render "shared/states"
+h3.text-center.bg-primary Approved Credit Counseling Agencies
+hr	
+= render "agencies/index", {:agencies => @agencies}
        

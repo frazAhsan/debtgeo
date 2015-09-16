@@ -1,32 +1,33 @@
 <% agencies.each do |agency| %>
 
-<div class="well">
-<h4 class="text-center">
-<%= agency.organisation_name.strip %>
-</h4>
-<address class="text-center">
-  <%= agency.address %>
-</address>
-<div class="col-md-12 text-center">
-<h3 class="text-center">Providers</h3>
-<% agency.providers.each do |provider| %>
- <%= link_to provider.name, "/provider/#{provider.display_slug}", class: "text-center" %>
-<% end %>
-</div>
+<div class="panel panel-info">
+	<div class="panel-heading text-center">
+		<%= agency.organisation_name.strip %>
+	</div>
+	<div class="panel-body">
+		<address class="text-center">
+  			<%= agency.address %>
+		</address>
+		<div class="col-md-12 text-center">
+			<h3 class="text-center">Providers</h3>
+			<% agency.providers.each do |provider| %>
+ 			<%= link_to provider.name, "/provider/#{provider.display_slug}", class: "text-center" %>
+			<% end %>
+		</div>
 <% agency.service_methods.each do |service_method| %>
 <% if service_method.service_method_name == "Telephone" %>
-<p class="bg-info text-center"><%= service_method.service_method_name %>: <%= service_method.phone_number %></p>
+<p class="text-center"><%= service_method.service_method_name %>: <%= service_method.phone_number %></p>
 <% elsif service_method.service_method_name == "Internet" %>
-<p class="bg-info text-center"><%= service_method.service_method_name %>: <%= service_method.web_site_url %></p>
+<p class="text-center"><%= service_method.service_method_name %>: <%= service_method.web_site_url %></p>
 <% elsif service_method.service_method_name == "Internet and Telephone" %>
-<p class="bg-info text-center">Internet/Telephone: <%= service_method.web_site_url %>/<%= service_method.phone_number %></p>
+<p class="text-center">Internet/Telephone: <%= service_method.web_site_url %>/<%= service_method.phone_number %></p>
 <% elsif service_method.service_method_name == "In Person" %>
-<p class="bg-info text-center"><%= service_method.service_method_name %>: <%= service_method.in_person_address %></p>
+<p class="text-center"><%= service_method.service_method_name %>: <%= service_method.in_person_address %></p>
 
 <% end %>
 <% end %>
 </div>
-
+</div>
 <% end %>
 
 <div class="col-md-12 text-center">

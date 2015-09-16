@@ -1,9 +1,6 @@
-.well
-  .row
-    = render "shared/states"
 .infinite-table  
-  h3.text-center= @provider.name
-  ul.nav.nav-tabs.cricket_directory_tab
+  h2.text-center= @provider.name
+  ul.nav.nav-tabs.nav-justified
     li.active
       a data-toggle="tab" href="#tab1" Overview
     li
@@ -12,7 +9,7 @@
       a data-toggle="tab" href="#tab3" Complaints
     li
       a data-toggle="tab" href="#tab4" Contact Info
-  div.tab-content
+  div.tab-content.text-center
     div.tab-pane.active id="tab1"
       blockquote
    	    p= @provider.accredited_since_title
