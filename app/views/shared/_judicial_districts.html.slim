@@ -1,5 +1,5 @@
 - unless @judicial_districts.blank?
-  .well
+  .alert.alert-warning
     h4.text-center Search by judicial districts
     ul.list-unstyled.text-center
       -@judicial_districts.each do |judicial_district|
@@ -7,4 +7,3 @@
           li= judicial_district.name
         - else
           li= link_to judicial_district.name, "/judicial/#{@state.slug}/#{judicial_district.slug}"
-    hr/

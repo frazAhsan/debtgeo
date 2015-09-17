@@ -1,5 +1,5 @@
 - unless @zip_codes.blank?
-  .well
+  .alert.alert-warning
     h4.text-center Search by zip code
     -@zip_codes.in_groups_of(3, false) do |zip_codes|
       .col-md-4
@@ -10,4 +10,3 @@
             - else
               li= link_to zip_code, "/#{@state.slug}/#{zip_code}"
     br/
-    hr/

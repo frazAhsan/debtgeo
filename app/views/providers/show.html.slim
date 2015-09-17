@@ -1,5 +1,8 @@
-.infinite-table  
-  h2.text-center= @provider.name
+.infinite-table    
+  .alert.alert-warning
+    h2.text-center= @provider.name
+    blockquote.text-center
+      p= "Better Business Bureau Rating #{@provider.rating}"
   ul.nav.nav-tabs.nav-justified
     li.active
       a data-toggle="tab" href="#tab1" Overview

@@ -1,5 +1,5 @@
 - unless @cities.blank?
-  .well
+  .alert.alert-warning
     h4.text-center Search by city
     ul.list-unstyled.text-center
       -@cities.each do |city|
@@ -7,4 +7,3 @@
           li= city
         - else
           li= link_to city, "/#{@state.slug}/#{city.downcase.gsub(" ", "-")}"
-    hr/

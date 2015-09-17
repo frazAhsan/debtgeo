@@ -1,5 +1,5 @@
 - unless @counties.blank?
-  .well
+  .alert.alert-warning
     h4.text-center Search by county
     ul.list-unstyled.text-center
       -@counties.each do |county|
@@ -7,4 +7,3 @@
           li= county
         - else
           li= link_to county, "/#{@state.slug}/#{county.downcase.gsub(" ", "-")}"
-    hr/
