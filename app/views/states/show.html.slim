@@ -1,6 +1,7 @@
 .well.row
   = render "shared/states"
-h3.text-center.bg-primary Approved Credit Counseling Agencies
+.panel-red
+  h4.text-center.panel-heading Approved Credit Counseling Agencies
 hr	
 = render "agencies/index", {:agencies => @agencies}
        

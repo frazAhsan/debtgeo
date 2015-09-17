@@ -1,28 +1,30 @@
 <% agencies.each do |agency| %>
 
-<div class="panel panel-info">
-	<div class="panel-heading text-center">
-		<%= agency.organisation_name.strip %>
+<div class="panel panel-red">
+	<div class="panel-heading text-center defaultPanel">
+		<strong><%= agency.organisation_name.strip %></strong>
 	</div>
 	<div class="panel-body">
 		<address class="text-center">
   			<%= agency.address %>
 		</address>
-		<div class="col-md-12 text-center">
-			<h3 class="text-center">Providers</h3>
+		<% unless agency.providers.blank? %>
+			<h4 class="text-center"><strong>Providers: </strong>
 			<% agency.providers.each do |provider| %>
  			<%= link_to provider.name, "/provider/#{provider.display_slug}", class: "text-center" %>
 			<% end %>
-		</div>
+			</h3>
+			<% end %>
+		
 <% agency.service_methods.each do |service_method| %>
 <% if service_method.service_method_name == "Telephone" %>
-<p class="text-center"><%= service_method.service_method_name %>: <%= service_method.phone_number %></p>
+<p class="text-center"><strong><%= service_method.service_method_name %>:</strong> <%= service_method.phone_number %></p>
 <% elsif service_method.service_method_name == "Internet" %>
-<p class="text-center"><%= service_method.service_method_name %>: <%= service_method.web_site_url %></p>
+<p class="text-center"><strong><%= service_method.service_method_name %>:</strong> <%= service_method.web_site_url %></p>
 <% elsif service_method.service_method_name == "Internet and Telephone" %>
-<p class="text-center">Internet/Telephone: <%= service_method.web_site_url %>/<%= service_method.phone_number %></p>
+<p class="text-center"><strong>Internet/Telephone:</strong> <%= service_method.web_site_url %>/<%= service_method.phone_number %></p>
 <% elsif service_method.service_method_name == "In Person" %>
-<p class="text-center"><%= service_method.service_method_name %>: <%= service_method.in_person_address %></p>
+<p class="text-center"><strong><%= service_method.service_method_name %>:</strong> <%= service_method.in_person_address %></p>
 
 <% end %>
 <% end %>

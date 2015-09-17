@@ -34,13 +34,18 @@ html lang="en"
 
     .container
       .row
-        .col-lg-9.col-md-9
-          = bootstrap_flash
-          = yield
-        .col-lg-3.col-md-3
-          = render "shared/zip_codes"
-          = render "shared/cities"
-          = render "shared/counties"
-          = render "shared/judicial_districts"
+        -if controller_name == "home"
+          .col-lg-12.col-md-12.col-sm-12
+            = bootstrap_flash
+            = yield
+        - else
+          .col-lg-9.col-md-9
+            = bootstrap_flash
+            = yield
+          .col-lg-3.col-md-3
+            = render "shared/zip_codes"
+            = render "shared/cities"
+            = render "shared/counties"
+            = render "shared/judicial_districts"
       footer
         p &copy; Company 2015

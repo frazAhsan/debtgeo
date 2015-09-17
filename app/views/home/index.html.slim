@@ -2,7 +2,8 @@
   .row
     = render "shared/states"
 .infinite-table  
-  h3.text-center Approved Credit Counseling Agencies
+  .panel-red
+    h4.text-center.panel-heading Approved Credit Counseling Agencies
   hr	
   = render "agencies/index", {:agencies => @agencies}
 

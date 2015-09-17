@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   get 'provider/:slug', to: 'providers#show'
+  get 'home/index', to: "home#index"
 
   get "/:id", to: 'states#show'
   get ':id/:zip_code', to: 'states#zip_codes',constraints: { zip_code: /\d{5}/}, via: :get
