@@ -20,27 +20,13 @@
    	      = @provider.address
       = render "map"
     div.tab-pane id="tab2" 
-      br/
-      div.panel.panel-red
-        div.panel-heading
-          p.text-center Details
-        div.panel-body
-          table.table
-            tbody
-              tr
-                td Better Business Bureau Rating
-                td= @provider.rating
-         
-        div.panel-footer
-          p.text-centers
-
     div.tab-pane id="tab3" 
       br/
       div.panel.panel-red
         div.panel-heading
           p.text-center= @provider.complaint_summary
         div.panel-body
-          table.table
+          table.tarble
             thead
               tr
                 th #
