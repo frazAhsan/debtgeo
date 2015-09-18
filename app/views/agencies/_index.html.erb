@@ -1,38 +1,46 @@
 <% agencies.each do |agency| %>
+	<div class="panel panel-red">
+		<div class="panel-heading text-center defaultPanel">
+			<strong><%= agency.organisation_name.strip %></strong>
+		</div>
+		<div class="panel-body">
+			<address class="text-center">
+  				<%= agency.address %>
+			</address>
+			<% unless agency.providers.blank? %>
+				<h4 class="text-center"><strong>Providers: </strong>
+				<% agency.providers.each do |provider| %>
+ 					<%= link_to provider.name, "/provider/#{provider.display_slug}", class: "text-center" %>
+				<% end %>
+				</h4>
+			<% end %>		
+			<% agency.service_methods.each do |service_method| %>
+				<% if service_method.service_method_name == "Telephone" %>
+					<p class="text-center"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span>&nbsp;&nbsp;<%= service_method.phone_number %></p>
+				<% elsif service_method.service_method_name == "Internet" %>
+					<p class="text-center"> 
+  						<% service_method.web_site_url.split(" or ").each do |website| %>
+  							<% unless website.squish.blank? %>
+  								<%= link_to "Visit Site", "http://#{website.squish}", target: "_blank", class: "btn btn-warning" %>
+  							<% end %>
+  						<% end %>
+  					</p>
+				<% elsif service_method.service_method_name == "Internet and Telephone" %>
+					<p class="text-center">
+						<% service_method.web_site_url.split(" or ").each do |website| %>
+  							<% unless website.squish.blank? %>
+  								<%= link_to "Visit Site", "http://#{website.squish}", target: "_blank", class: "btn btn-warning" %>
+  							<% end %>
+  						<% end %>
+  					<span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span>&nbsp;&nbsp;<%= service_method.phone_number %></p>
+				<% elsif service_method.service_method_name == "In Person" %>
+					<p class="text-center"><strong><%= service_method.service_method_name %>:</strong> <%= service_method.in_person_address %></p>
 
-<div class="panel panel-red">
-	<div class="panel-heading text-center defaultPanel">
-		<strong><%= agency.organisation_name.strip %></strong>
+				<% end %>
+			<% end %>
+		</div>
 	</div>
-	<div class="panel-body">
-		<address class="text-center">
-  			<%= agency.address %>
-		</address>
-		<% unless agency.providers.blank? %>
-			<h4 class="text-center"><strong>Providers: </strong>
-			<% agency.providers.each do |provider| %>
- 			<%= link_to provider.name, "/provider/#{provider.display_slug}", class: "text-center" %>
-			<% end %>
-			</h3>
-			<% end %>
-		
-<% agency.service_methods.each do |service_method| %>
-<% if service_method.service_method_name == "Telephone" %>
-<p class="text-center"><strong><%= service_method.service_method_name %>:</strong> <%= service_method.phone_number %></p>
-<% elsif service_method.service_method_name == "Internet" %>
-<p class="text-center"><strong><%= service_method.service_method_name %>:</strong> <%= service_method.web_site_url %></p>
-<% elsif service_method.service_method_name == "Internet and Telephone" %>
-<p class="text-center"><strong>Internet/Telephone:</strong> <%= service_method.web_site_url %>/<%= service_method.phone_number %></p>
-<% elsif service_method.service_method_name == "In Person" %>
-<p class="text-center"><strong><%= service_method.service_method_name %>:</strong> <%= service_method.in_person_address %></p>
-
 <% end %>
-<% end %>
-</div>
-</div>
-<% end %>
-
 <div class="col-md-12 text-center">
 	<%= paginate(agencies, :theme => 'twitter-bootstrap-3',:pagination_class => "pagination-sm text-center") %>
 </div>
-<hr/>
