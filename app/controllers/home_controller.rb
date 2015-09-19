@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   		state_ids = Agency.select("distinct state_id")
   		@states = State.where(id: state_ids).order(:name) 
   	end
-  	state_id = @website.state_id
+  	state_id = @site.state_id
   	if state_id.nil?
   		@agencies = Agency.includes(:service_methods).joins(judicial_districts: [:state]).where("states.id = ?", state_id).page(params[:page]).per(15).order(:organisation_name).distinct
    else

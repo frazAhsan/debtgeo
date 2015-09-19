@@ -1,5 +1,6 @@
 ActiveAdmin.register Website do
-  permit_params :name, :domain, :city, :state_id
+  permit_params :name, :domain, :city, :state_id, :language
+    actions :all#, :except => [:new, :edit]
 
   index do
     selectable_column
@@ -8,6 +9,7 @@ ActiveAdmin.register Website do
     column :domain
     column :city
     column :state
+    column :language
     actions
   end
 
@@ -21,6 +23,7 @@ ActiveAdmin.register Website do
       f.input :domain
       f.input :city
       f.input :state
+      f.input :language, collection: [["English", "en"], ["French", "fr"]]
     end
     f.actions
   end

@@ -8,7 +8,7 @@
   				<%= agency.address %>
 			</address>
 			<% unless agency.providers.blank? %>
-				<h4 class="text-center"><strong>Providers: </strong>
+				<h4 class="text-center"><strong><%= t("providers") %>: </strong>
 				<% agency.providers.each do |provider| %>
  					<%= link_to provider.name, "/provider/#{provider.display_slug}", class: "text-center" %>
 				<% end %>
@@ -21,7 +21,7 @@
 					<p class="text-center"> 
   						<% service_method.web_site_url.split(" or ").each do |website| %>
   							<% unless website.squish.blank? %>
-  								<%= link_to "Visit Site", "http://#{website.squish}", target: "_blank", class: "btn btn-warning" %>
+  								<%= link_to t("visit_website"), "http://#{website.squish}", target: "_blank", class: "btn btn-warning" %>
   							<% end %>
   						<% end %>
   					</p>

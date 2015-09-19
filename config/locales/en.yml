@@ -21,3 +21,11 @@
 
 en:
   hello: "Hello world"
+  select_state_providers: "Select a state to find providers"
+  approved_credit_counseling_agencies: "Approved Credit Counseling Agencies"
+  visit_website: "Visit Website"
+  providers: "Providers"
+  views:
+    pagination:
+      truncate: "..."
+

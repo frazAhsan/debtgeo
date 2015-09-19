@@ -1,0 +1,11 @@
+fr:
+  hello: "Hello world"
+  select_state_providers: "Sélectionnez un état pour trouver des fournisseurs"
+  approved_credit_counseling_agencies: "Credit Counseling agences approuvées"
+  visit_website: "Visitez le site Web"
+  providers: "fournisseurs"
+  views:
+    pagination:
+      truncate: "..."
+      next: "Suivant >"
+      last: "Dernier >>"

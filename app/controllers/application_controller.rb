@@ -6,11 +6,12 @@ class ApplicationController < ActionController::Base
 
 
   def get_website
-  	domain = request.host
+  	domain = request.subdomain
   	#original_url = request.original_url
-  	@website = Website.find_by(domain: domain)
+  	@site = Website.find_by(domain: domain)
   	#TODO below line should be removed later
-  	@website = Website.first if @website.nil?
+  	@site = Website.first if @site.nil?
+    I18n.locale = @site.language || I18n.default_locale
   end
 
   #def authenticate_admin_user!

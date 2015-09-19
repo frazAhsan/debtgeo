@@ -3,7 +3,7 @@
     = render "shared/states"
 .infinite-table  
   .panel-red
-    h4.text-center.panel-heading Approved Credit Counseling Agencies
+    h4.text-center.panel-heading= t("approved_credit_counseling_agencies")
   hr	
   = render "agencies/index", {:agencies => @agencies}
 
