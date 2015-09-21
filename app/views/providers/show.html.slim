@@ -45,7 +45,8 @@
                     td= index+1
                     td= complaint.complaint_type
                     td= complaint.total_closed_complaints
-        div.panel-footer
-          p.text-center= @provider.complaint_additional_info
+        - unless @provider.complaint_additional_info.blank?
+          div.panel-footer
+            p.text-center= @provider.complaint_additional_info
 
 
