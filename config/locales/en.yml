@@ -25,6 +25,11 @@ en:
   approved_credit_counseling_agencies: "Approved Credit Counseling Agencies"
   visit_website: "Visit Website"
   providers: "Providers"
+  customer_complaints_summary: "Customer Complaints Summary"
+  complaint_type: "Complaint Type"
+  total_closed_complaint: "Total Closed Complaint"
+  phone: "Phone"
+  fax: "Fax"
   views:
     pagination:
       truncate: "..."

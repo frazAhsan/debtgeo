@@ -3,75 +3,49 @@
     h2.text-center= @provider.name
     blockquote.text-center
       p= "Better Business Bureau Rating #{@provider.rating}"
-  ul.nav.nav-tabs.nav-justified
-    li.active
-      a data-toggle="tab" href="#tab1" Overview
-    li
-      a data-toggle="tab" href="#tab2" Details
-    li
-      a data-toggle="tab" href="#tab3" Complaints
-    li
-      a data-toggle="tab" href="#tab4" Contact Info
   div.tab-content.text-center
     div.tab-pane.active id="tab1"
       blockquote
-   	    p= @provider.accredited_since_title
+   	    p.text-warning= @provider.accredited_since_title
    	    address
    	      = @provider.address
+        -unless @provider.email.blank?
+          address= "Email: #{@provider.email}"
+        -unless @provider.phone.blank?
+          address= "#{t("phone")}: <span class='glyphicon glyphicon-phone-alt' aria-hidden='true'></span>&nbsp;&nbsp;#{@provider.phone}".html_safe
+        -unless @provider.fax.blank?
+          address= "#{t("fax")}: <span class='glyphicon glyphicon-phone-alt' aria-hidden='true'></span>&nbsp;&nbsp;#{@provider.fax}".html_safe
+        - unless @additional_phones.blank?
+          address= t("additional_phone_numbers")
+          - @additional_phones.each do |phone|
+            address= "<span class='glyphicon glyphicon-phone-alt' aria-hidden='true'></span>&nbsp;&nbsp;#{phone}".html_safe 
+        - unless @additional_faxes.blank?
+          address= t("additional_fax_numbers")
+          - @additional_faxes.each do |phone|
+            address= "<span class='glyphicon glyphicon-phone-alt' aria-hidden='true'></span>&nbsp;&nbsp;#{phone}".html_safe 
+      hr/
       = render "map"
-    div.tab-pane id="tab2" 
-    div.tab-pane id="tab3" 
-      br/
-      div.panel.panel-red
-        div.panel-heading
-          p.text-center= @provider.complaint_summary
-        div.panel-body
-          table.tarble
-            thead
-              tr
-                th #
-                th Complaint Type
-                th Total Closed Complaint
-            tbody
-              -@provider.bbb_complaints.each_with_index do |complaint, index|
+      hr/
+      .col-md-8
+        div.panel.panel-default
+          div.panel-heading
+            blockquote
+              h4= t("customer_complaints_summary")
+              small= @provider.complaint_summary
+          div.panel-body
+            table.table
+              thead
                 tr
-                  td= index+1
-                  td= complaint.complaint_type
-                  td= complaint.total_closed_complaints
+                  th #
+                  th= t("complaint_type")
+                  th= t("total_closed_complaint")
+              tbody
+                -@provider.bbb_complaints.each_with_index do |complaint, index|
+                  tr
+                    td= index+1
+                    td= complaint.complaint_type
+                    td= complaint.total_closed_complaints
         div.panel-footer
           p.text-center= @provider.complaint_additional_info
-    div.tab-pane id="tab4" 
-      br/
-      div.panel.panel-red
-        div.panel-heading
-          p.text-center Contact Information
-        div.panel-body
-          table.table.col-md-6
-            tbody
-              tr
-                td Website
-                td= link_to @provider.business_link, @provider.business_link, :target => "_blank"
-              tr
-                td Email
-                td= @provider.email
-              tr
-                td Phone
-                td= @provider.phone
-              tr
-                td Fax
-                td= @provider.fax 
-              - unless @additional_phones.blank?
-                tr
-                  td Additional Phone Numbers
-                - @additional_phones.each do |phone|
-                  tr
-                    td= phone.contact_number               
-              - unless @additional_faxes.blank?
-                tr
-                  td Additional Fax Numbers
-                - @additional_faxes.each do |phone|
-                  tr
-                    td= phone.contact_number   
-        div.panel-footer
-          p.text-centers
+
 

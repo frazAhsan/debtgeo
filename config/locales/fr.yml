@@ -4,6 +4,13 @@ fr:
   approved_credit_counseling_agencies: "Credit Counseling agences approuvées"
   visit_website: "Visitez le site Web"
   providers: "fournisseurs"
+  customer_complaints_summary: "Plaintes des clients Résumé"
+  complaint_type: "Type de plainte"
+  total_closed_complaint: "Plainte Fermé total"
+  phone: "phone"
+  fax: "Fax"
+  additional_fax_numbers: "Numéros de télécopie supplémentaires"
+  additional_phone_numbers: "Numéros de téléphone supplémentaires"  
   views:
     pagination:
       truncate: "..."

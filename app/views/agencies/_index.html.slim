@@ -1,0 +1,32 @@
+- agencies.each do |agency| 
+  div.panel.panel-red
+	div.panel-heading.text-center.defaultPanel
+	  strong= agency.organisation_name.strip
+	div.panel-body
+	  address.text-center= agency.address
+	  - unless agency.providers.blank? 
+		h4.text-center
+		  strong= "#{t('providers')}:"
+		  -agency.providers.each do |provider| 
+ 			= link_to provider.name, "/provider/#{provider.display_slug}", class: "text-center" 
+		  -agency.service_methods.each do |service_method|
+		    -if service_method.service_method_name == "Telephone" 
+			  p.text-center= "<span class='glyphicon glyphicon-phone-alt' aria-hidden='true'></span>&nbsp;&nbsp; #{service_method.phone_number}".html_safe
+		    -elsif service_method.service_method_name == "Internet"
+			  p.text-center
+  				-service_method.web_site_url.split(" or ").each do |website| 
+  				  -unless website.squish.blank? 
+  					= link_to t("visit_website"), "http://#{website.squish}", target: "_blank", class: "btn btn-warning" 
+			- elsif service_method.service_method_name == "Internet and Telephone"
+			  p.text-center
+				- service_method.web_site_url.split(" or ").each do |website| 
+  				  - unless website.squish.blank? 
+  					= link_to "Visit Site", "http://#{website.squish}", target: "_blank", class: "btn btn-warning" 
+  					= "<span class='glyphicon glyphicon-phone-alt' aria-hidden='true'></span>&nbsp;&nbsp;#{service_method.phone_number}".html_safe
+			- elsif service_method.service_method_name == "In Person"
+			  p.text-center
+			   strong= "#{service_method.service_method_name}:"
+			   = service_method.in_person_address
+
+div.col-md-12.text-center
+  = paginate(agencies, :theme => 'twitter-bootstrap-3',:pagination_class => "pagination-sm text-center")
