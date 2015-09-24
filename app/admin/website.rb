@@ -23,7 +23,7 @@ ActiveAdmin.register Website do
       f.input :domain
       f.input :city
       f.input :state
-      f.input :seo_template, collection: [["Format 1", "1"], ["Format 1", "2"], ["Format 3", "3"], ["Format 4", "4"], ["Format 5", "5"]]
+      f.input :seo_template, collection: [["Format 1", "1"], ["Format 2", "2"], ["Format 3", "3"], ["Format 4", "4"], ["Format 5", "5"]]
     end
     f.actions
   end
