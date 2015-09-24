@@ -1,5 +1,5 @@
 ActiveAdmin.register Website do
-  permit_params :name, :domain, :city, :state_id
+  permit_params :name, :domain, :city, :state_id, :seo_template
     actions :all#, :except => [:new, :edit]
 
   index do
@@ -9,6 +9,7 @@ ActiveAdmin.register Website do
     column :domain
     column :city
     column :state
+    column :seo_template
     actions
   end
 
@@ -22,6 +23,7 @@ ActiveAdmin.register Website do
       f.input :domain
       f.input :city
       f.input :state
+      f.input :seo_template, collection: [["Format 1", "1"], ["Format 1", "2"], ["Format 3", "3"], ["Format 4", "4"], ["Format 5", "5"]]
     end
     f.actions
   end
