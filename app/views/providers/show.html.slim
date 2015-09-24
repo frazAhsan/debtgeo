@@ -1,6 +1,7 @@
 .infinite-table    
   .alert.alert-warning
-    h2.text-center= @provider.name
+    h3.text-center= set_header_name
+    h4.text-center= set_sub_header_name
     blockquote.text-center
       p= "Better Business Bureau Rating #{@provider.rating}"
   div.tab-content.text-center

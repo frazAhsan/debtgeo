@@ -7,6 +7,7 @@ class StatesController < ApplicationController
     else
       set_default_values
 	     @agencies = Agency.includes(:service_methods).joins(judicial_districts: [:state]).where("states.id = ?", @state.id).page(params[:page]).per(15).order(:organisation_name).distinct
+      @total_entries = Agency.includes(:service_methods).joins(judicial_districts: [:state]).where("states.id = ?", @state.id).count
     end
   end
 
@@ -17,6 +18,7 @@ class StatesController < ApplicationController
     else
       set_default_values
       @agencies = Agency.includes(:service_methods).where("zip_code = ?", params[:zip_code]).page(params[:page]).per(15).order(:organisation_name).distinct
+      @total_entries = Agency.includes(:service_methods).where("zip_code = ?", params[:zip_code]).count
       render :show
     end
   end
@@ -30,9 +32,12 @@ class StatesController < ApplicationController
       set_default_values
       if params[:attribute].include?("-county")
         @agencies = Agency.includes(:service_methods).where("lower(county) = ?", attribute).page(params[:page]).per(15).order(:organisation_name).distinct
+        @total_entries = Agency.includes(:service_methods).where("lower(county) = ?", attribute).count
       else
         @agencies = Agency.includes(:service_methods).where("lower(city) = ?", attribute).page(params[:page]).per(15).order(:organisation_name).distinct
+        @total_entries = Agency.includes(:service_methods).where("lower(city) = ?", attribute).count
       end
+      
       render :show
     end
     
@@ -50,6 +55,7 @@ class StatesController < ApplicationController
       @cities = Agency.select("distinct(city)").where("state_id = ? and city is not null", @state.id).collect(&:city).sort
       @counties = Agency.select("distinct(county)").where("state_id = ? and county is not null", @state.id).collect(&:county).sort
       @judicial_districts = JudicialDistrict.where(state_id: @state.id).order(:name)
+      
     end
   end
 

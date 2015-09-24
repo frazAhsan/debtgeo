@@ -2,6 +2,10 @@
   .row
     = render "shared/states"
 .infinite-table  
-  h3.text-center Approved Credit Counseling Agencies
+  .panel-red
+    h3.text-center.panel-heading
+      = set_header_name
+      br/
+      = set_sub_header_name
   hr	
   = render "agencies/index", {:agencies => @agencies}

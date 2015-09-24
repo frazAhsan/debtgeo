@@ -1,7 +1,10 @@
 .alert.alert-warning.row
   = render "shared/states"
 .panel-red
-  h4.text-center.panel-heading Approved Credit Counseling Agencies
+  h4.text-center.panel-heading
+    = set_header_name
+    br/
+    = set_sub_header_name
 hr	
 = render "agencies/index", {:agencies => @agencies}
        

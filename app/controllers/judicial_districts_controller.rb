@@ -4,7 +4,8 @@ class JudicialDistrictsController < ApplicationController
 		name = params[:id].gsub("-", " ")
 		@judicial_district = JudicialDistrict.where("lower(name) = ?", name).first
 		@agencies = @judicial_district.agencies.includes(:service_methods).page(params[:page]).per(10).order(:organisation_name).distinct
-		set_default_values
+		@total_entries = @judicial_district.agencies.includes(:service_methods).count
+    set_default_values
 	end
 
   	def set_default_values
