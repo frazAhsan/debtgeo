@@ -2,11 +2,16 @@
   .alert.alert-warning
     h4.text-center Search by zip code
     -@zip_codes.in_groups_of(3, false) do |zip_codes|
-      .col-md-4
-        ul.list-unstyled
-          - for zip_code in zip_codes
-            - if params[:zip_code] == zip_code
-              li= zip_code
-            - else
-              li= link_to zip_code, "/#{@state.slug}/#{zip_code}"
+      ul.list-unstyled.text-center
+        - for zip_code in zip_codes
+          - if params[:zip_code] == zip_code
+            li.col-md-4= zip_code
+          - else
+            li.col-md-4= link_to zip_code, "/#{@state.slug}/#{zip_code}"
     br/
+    -if @zip_codes.size > 3
+      br/
+    -if @zip_codes.size > 6
+      br/
+    -if @zip_codes.size > 9
+      br/

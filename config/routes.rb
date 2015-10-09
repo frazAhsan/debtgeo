@@ -1,15 +1,26 @@
 Rails.application.routes.draw do
   devise_for :users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  root 'home#index'
+  get "(page/:page)", to: "home#index"
   get 'provider/:slug', to: 'providers#show'
   get 'home/index', to: "home#index"
 
   get "/:id", to: 'states#show'
+  get '(:id/page/:page)', to: 'states#show'
   get ':id/:zip_code', to: 'states#zip_codes',constraints: { zip_code: /\d{5}/}, via: :get
+  get '(:id/:zip_code/page/:page)', to: 'states#zip_codes',constraints: { zip_code: /\d{5}/}, via: :get
   get ':id/:attribute', to: 'states#search'
+  get '(:id/:attribute/page/:page)', to: 'states#search'
   get 'judicial/:state_id/:id', to: 'judicial_districts#show'
+  get '(judicial/:state_id/:id/page/:page)', to: 'judicial_districts#show'
 
-  resources :states
+  concern :paginatable do
+    get '(page/:page)', :action => :index, :on => :collection, :as => ''
+  end
+
+  resources :states, :concerns => :paginatable
+
 
   resources :judicial_districts
 
@@ -69,5 +80,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-   root 'home#index'
+   
 end

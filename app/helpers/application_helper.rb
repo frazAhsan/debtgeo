@@ -1,7 +1,26 @@
 module ApplicationHelper
 
  def set_website_title
- 	return title_format_1
+ 	if @site.seo_template == "2"
+ 		return title_format_2
+ 	else
+ 		return title_format_1
+ 	end
+ end
+
+ def title_format_2
+ 	if !@provider.nil?
+ 		return "#{@provider.name} Debt Settlement in #{@provider.locality}, #{@provider.region}"
+ 	elsif !@state.nil? 		
+ 		unless params[:attribute].blank?
+ 		  place_info = "#{params[:attribute]}, #{@state.name}" 
+ 		  return "#{place_info} Debt Settlement Firm Accreditation & Reviews "
+ 		else
+ 		  place_info = "#{@state.name}"
+ 		  return "#{place_info} Debt Settlement Clinic Reviews "
+ 		end
+ 	end
+ 	return "Debt Settlement Clinic Reviews "
  end
 
  def title_format_1
@@ -16,7 +35,11 @@ module ApplicationHelper
  end
 
  def set_meta_tag
-   meta_tag_format1
+ 	if @site.seo_template == "2"
+ 		return meta_tag_format2
+ 	else
+ 		return meta_tag_format1
+ 	end   
  end
 
   def meta_tag_format1
@@ -30,15 +53,38 @@ module ApplicationHelper
  	return "With #{BbbOverview.count} certified debt consolidation providers offering services, choosing the right company for your specific financial situtation can be confusing. Make an informed choice by reviewing our database of accredidations for debt consolidation providers."
   end
 
+  def meta_tag_format2
+ 	if !@provider.nil?
+ 		return "#{@provider.name}, a debt settlement firm in #{@provider.locality}, #{@provider.region}. Research payment methods, treatment offerings, and reviews from past clients for #{@provider.name}"
+ 	elsif !@state.nil?
+  		unless params[:attribute].blank?
+ 		  place_info = "#{params[:attribute]}, #{@state.name}" 
+ 		  return "Research debt settlement options near #{place_info}. Filter by dependency, payment terms, services offered and real user reviews"
+ 		else
+ 		  place_info = "#{@state.name}"
+ 		  return "Finding the right debt settlement help in #{@state.name} begins with reviewing facilities for certification, fee structure and past performance. Start getting help with debt in #{@state.state_code}."
+ 		end 		
+ 	end
+ 	return "Finding the right debt settlement company begins with reviewing facilities for certification, cost and historical performance. Live a debt-free life. Getting help with your debt today."
+  end
+
   def set_header_name
-  	return set_h1_name
+ 	if @site.seo_template == "2"
+ 		return set_h1_name2
+ 	else
+ 		return set_h1_name1
+ 	end    	
   end
 
   def set_sub_header_name
-  	return set_h2_name
+ 	if @site.seo_template == "2"
+ 		return set_h2_name2
+ 	else
+ 		return set_h2_name1
+ 	end  	
   end
 
-  def set_h1_name
+  def set_h1_name1
  	if !@provider.nil?
  		return "#{@provider.name}"
  	elsif !@state.nil?
@@ -49,9 +95,29 @@ module ApplicationHelper
  	return "Debt Consolidation Providers"
   end
 
-  def set_h2_name
+  def set_h1_name2
+ 	if !@provider.nil?
+ 		return "#{@provider.name}"
+ 	elsif !@state.nil?
+ 		place_info = "#{@state.name}"
+ 		place_info += ", #{params[:attribute]}" unless params[:attribute].blank?
+ 		return "#{place_info} Debt Settlement"
+ 	end
+ 	return "Debt Settlement"
+  end
+
+  def set_h2_name1
  	if !@provider.nil?
  		return "#{pluralize(BbbOverview.where(agency_id: @provider.agency_id).count, 'result')}"
+ 	elsif !@state.nil?
+ 		return "#{pluralize(@total_entries, "result")}"
+ 	end
+ 	return "#{pluralize(Agency.count, "result")}"
+  end
+
+  def set_h2_name2
+ 	if !@provider.nil?
+ 		return "Addiction Center in #{@provider.locality}, #{@provider.region}"
  	elsif !@state.nil?
  		return "#{pluralize(@total_entries, "result")}"
  	end
