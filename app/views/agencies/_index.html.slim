@@ -6,9 +6,10 @@
 	  address.text-center= agency.address
 	  - unless agency.providers.blank? 
 		h4.text-center
-		  strong= "#{t('providers')}:"
-		  -agency.providers.each do |provider| 
- 			= link_to provider.name, "/provider/#{provider.display_slug}", class: "text-center" 
+		  strong= "#{t('providers')}"
+		  ul.list-unstyled.text-center
+		    -agency.providers.each do |provider| 
+ 			  li= link_to provider.name, "/provider/#{provider.display_slug}", class: "text-center" 
 		  -agency.service_methods.each do |service_method|
 		    -if service_method.service_method_name == "Telephone" 
 			  p.text-center= "<span class='glyphicon glyphicon-phone-alt' aria-hidden='true'></span>&nbsp;&nbsp; #{service_method.phone_number}".html_safe

@@ -1,9 +1,23 @@
 .infinite-table    
-  .alert.alert-warning
+  .alert.alert-warning class="#{provider_widget_class(@near_by_city_providers.size, @near_by_zip_code_providers.size)}"
     h3.text-center= set_header_name
     h4.text-center= set_sub_header_name
     blockquote.text-center
       p= "Better Business Bureau Rating #{@provider.rating}"
+  .col-md-4
+    - unless @near_by_city_providers.blank?
+      .alert.alert-warning
+        h4.text-center= near_by_cities
+        ul.list-unstyled.text-center
+          -@near_by_city_providers.each do |provider|
+            li= link_to provider.name, "/provider/#{provider.display_slug}", class: "text-center" 
+    - unless @near_by_zip_code_providers.blank?
+      .alert.alert-warning
+        h4.text-center= near_by_zip_codes
+        ul.list-unstyled.text-center
+          -@near_by_zip_code_providers.each do |provider|
+            li= link_to provider.name, "/provider/#{provider.display_slug}", class: "text-center" 
+  .clearfix
   div.tab-content.text-center
     div.tab-pane.active id="tab1"
       blockquote

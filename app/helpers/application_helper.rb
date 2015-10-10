@@ -116,11 +116,32 @@ module ApplicationHelper
   end
 
   def set_h2_name2
- 	if !@provider.nil?
- 		return "Addiction Center in #{@provider.locality}, #{@provider.region}"
- 	elsif !@state.nil?
- 		return "#{pluralize(@total_entries, "result")}"
- 	end
- 	return "#{pluralize(Agency.count, "result")}"
+ 	  if !@provider.nil?
+ 		  return "Addiction Center in #{@provider.locality}, #{@provider.region}"
+ 	  elsif !@state.nil?
+ 		  return "#{pluralize(@total_entries, "result")}"
+ 	  end
+ 	  return "#{pluralize(Agency.count, "result")}"
+  end
+
+  def near_by_cities
+    if @site.seo_template == "2"
+      return "Debt Settlement in #{@provider.locality}"
+    else
+      return "Debt Consolidation Providers in #{@provider.locality}"
+    end
+  end
+
+  def near_by_zip_codes
+    if @site.seo_template == "2"
+      return "#{@provider.postal_code} Debt Settlement"
+    else
+      return "#{@provider.postal_code} Debt Consolidation Providers"
+    end
+  end
+
+  def provider_widget_class(zip_count, city_count)
+    return "col-md-12" if zip_count == 0 && city_count == 0
+    return "col-md-8"
   end
 end

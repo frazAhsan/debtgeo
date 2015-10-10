@@ -4,13 +4,16 @@ class ProvidersController < ApplicationController
 	def show
 	  #id = params[:slug].split("-").last
 	  @provider = BbbOverview.find_by(display_slug: params[:slug])
+
+    @near_by_zip_code_providers = BbbOverview.search(id_not_eq: @provider.id, postal_code_cont: @provider.postal_code).result(distinct: true)
+    @near_by_city_providers = BbbOverview.search(id_not_eq: @provider.id, locality_cont: @provider.locality).result(distinct: true)
     if @provider.nil?
       render file: "#{Rails.root}/public/404.html", status: 403, layout: false
     else
 	  #@state = State.find_by(slug: params[:id])
     @additional_phones = BbbContact.where(bbb_overview_id: @provider.id, contact_type: "Phone").collect(&:contact_number)
     @additional_faxes = BbbContact.where(bbb_overview_id: @provider.id, contact_type: "Fax").collect(&:contact_number)
-      set_default_values
+    set_default_values
     end
 	end
 
@@ -18,11 +21,6 @@ class ProvidersController < ApplicationController
     unless request.xhr?
       state_ids = Agency.select("distinct state_id")
       @states = State.where(id: state_ids).order(:name) 
-      
-      #@zip_codes = Agency.select("distinct(zip_code)").where("state_id = ? and zip_code is not null", @state.id).collect(&:zip_code).sort
-      #@cities = Agency.select("distinct(city)").where("state_id = ? and city is not null", @state.id).collect(&:city).sort
-      #@counties = Agency.select("distinct(county)").where("state_id = ? and county is not null", @state.id).collect(&:county).sort
-      #@judicial_districts = JudicialDistrict.where(state_id: @state.id).order(:name)
     end
   end
 end
