@@ -5,9 +5,9 @@
       ul.list-unstyled.text-center
         - for zip_code in zip_codes
           - if params[:zip_code] == zip_code
-            li.col-md-4= zip_code
+            li.text-center class="#{zip_code_class_name(@zip_codes.size)}"= zip_code
           - else
-            li.col-md-4= link_to zip_code, "/#{@state.slug}/#{zip_code}"
+            li.text-center class="#{zip_code_class_name(@zip_codes.size)}"= link_to zip_code, "/#{@state.slug}/#{zip_code}"
     br/
     -if @zip_codes.size > 3
       br/

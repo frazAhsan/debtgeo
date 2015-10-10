@@ -144,4 +144,10 @@ module ApplicationHelper
     return "col-md-12" if zip_count == 0 && city_count == 0
     return "col-md-8"
   end
+
+  def zip_code_class_name(zip_count)
+    return "col-md-6" if zip_count == 2
+    return "col-md-12" if zip_count < 2
+    return "col-md-4"
+  end
 end
