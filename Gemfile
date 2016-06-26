@@ -24,6 +24,8 @@ gem 'canonical-rails', github: 'jumph4x/canonical-rails'
 gem 'rails-i18n', '~> 4.0.0'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+
+gem 'puma'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
